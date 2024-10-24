@@ -6,14 +6,9 @@ const routes: Array<any> = [
         redirect: "/",
     },
     {
-        name: "Notepad",
+        name: "Test",
         path: "/",
-        component: () => import("../views/MyNotepad.vue"),
-    },
-    {
-        name: "ProgressWork",
-        path: "/progress-work",
-        component: () => import("../views/ProgressWork.vue"),
+        component: () => import("../views/twitch/MyStreamInfo.vue"),
     },
     {
         name: "NeonBorder",

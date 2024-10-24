@@ -3,22 +3,33 @@ body,
 html {
     background-color: transparent !important;
     background: transparent !important;
+    margin: 0;
+    padding: 0;
 }
 
+* {
+    &::-webkit-scrollbar {
+        display: none !important;
+    }
+}
+
+$shadow-size: 20px;
+$space: 5px;
+$neg-space: -$space;
 @keyframes rotate-shadow {
     0% {
-        box-shadow: 0 0 40px #00c8ff, 0 0 40px #df01f8, -10px -10px 40px #00c8ff, 10px 10px 40px #df01f8;
+        box-shadow: $neg-space $neg-space $shadow-size #00c8ff, $space $space $shadow-size #df01f8;
     }
     25% {
-        box-shadow: -10px 10px 40px #00c8ff, 10px -10px 40px #df01f8;
+        box-shadow: $space $neg-space $shadow-size #00c8ff, $neg-space $space $shadow-size #df01f8;
     }
     50% {
-        box-shadow: 10px 10px 40px #df01f8, -10px -10px 40px #00c8ff;
+        box-shadow: $space $space $shadow-size #00c8ff, $neg-space $neg-space $shadow-size #df01f8;
     }
     75% {
-        box-shadow: 10px -10px 40px #df01f8, -10px 10px 40px #00c8ff;
+        box-shadow: $neg-space $space $shadow-size #00c8ff, $space $neg-space $shadow-size #df01f8;
     }
     100% {
-        box-shadow: 0 0 40px #00c8ff, 0 0 40px #df01f8, -10px -10px 40px #00c8ff, 10px 10px 40px #df01f8;
+        box-shadow: $neg-space $neg-space $shadow-size #00c8ff, $space $space $shadow-size #df01f8;
     }
 }
