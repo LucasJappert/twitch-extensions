@@ -1,0 +1,72 @@
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    overflow-x: hidden;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #444444, #666666);
+    height: 100vh;
+}
+
+#app {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+}
+.v-input__details {
+    display: none !important;
+}
+
+/* Estiliza la barra de scroll */
+::-webkit-scrollbar {
+    width: 8px;
+    /* Cambia el tamaño aquí para hacerla más fina */
+}
+
+/* Estiliza la parte de la barra (track) */
+::-webkit-scrollbar-track {
+    background: #333;
+    /* Color de fondo de la barra */
+}
+
+/* Estiliza el "pulgar" (la parte móvil) */
+::-webkit-scrollbar-thumb {
+    background-color: green;
+    /* Cambia el color aquí para hacerla verde */
+    border-radius: 10px;
+    /* Bordes redondeados */
+    border: 2px solid #333;
+    /* Espacio entre la barra y el track */
+}
+
+textarea {
+    color: #ffffff !important;
+    height: 50vh !important;
+}
+.v-btn.outlined {
+    border: 1px solid currentColor;
+}
+.h-100 {
+    height: 100vh !important;
+}
+.p-relative {
+    position: relative !important;
+}
+
+.dark-theme {
+    background-color: #1e1e1e;
+    color: #cccccc;
+}
+
+#app {
+    min-height: 100vh !important;
+    .content {
+        min-height: 100vh !important;
+    }
+}
