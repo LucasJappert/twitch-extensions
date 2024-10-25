@@ -159,6 +159,7 @@ $black-shadow: 0 0 10px #000;
     flex-direction: column;
     min-height: 55px;
     height: 40px;
+    background-color: #0000008a;
 }
 
 .range-container {
@@ -195,7 +196,7 @@ $neon-glow1: 0 0 10px #00c8ff;
 .segment-title {
     position: relative;
     z-index: 1;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: bold;
 }
 
