@@ -198,6 +198,8 @@ $neon-glow1: 0 0 10px #00c8ff;
     z-index: 1;
     font-size: 1.8rem;
     font-weight: bold;
+    color: #000;
+    text-shadow: $neon-glow, $neon-glow, $neon-glow;
 }
 
 .completed-segment {
@@ -208,9 +210,14 @@ $neon-glow1: 0 0 10px #00c8ff;
     border-radius: 10px;
 }
 .current-segment {
-    color: #00c8ff;
-    text-shadow: $black-shadow, $black-shadow, $black-shadow, $black-shadow;
+    background: #00c8ff40;
     box-shadow: 3px 3px 5px 0px #ae01f8, -3px -3px 5px 0px #00c8ff, 3px 3px 5px 0px #ae01f8, -3px -3px 5px 0px #00c8ff;
+
+    .segment-title {
+        color: #00c8ff;
+        text-shadow: $black-shadow, $black-shadow, $black-shadow, $black-shadow;
+        font-size: 1.8rem;
+    }
 }
 .progress {
     width: 100%;
