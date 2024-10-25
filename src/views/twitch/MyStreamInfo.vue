@@ -49,6 +49,7 @@ $neon-glow: 0 0 30px #00c8ff;
     margin-bottom: 10px;
     text-shadow: $neon-glow, $neon-glow, $neon-glow;
     font-weight: bold;
+    background-color: #000000c0;
 }
 
 // .city {
