@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Fondo redondeado -->
+  <rect width="100" height="100" rx="20" fill="#000000" />
+
+  <!-- Círculo principal que puede simbolizar una cámara o captura de pantalla -->
+  <circle cx="50" cy="50" r="30" fill="none" stroke="#00ffff" stroke-width="10" />
+
+  <!-- Círculo interno que representa el enfoque o el centro de la captura -->
+  <circle cx="50" cy="50" r="10" fill="#df01f8" />
+</svg>

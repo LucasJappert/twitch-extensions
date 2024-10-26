@@ -6,6 +6,7 @@ import vuetify from './plugins/vuetify';
 import 'vuetify/styles'; // Importa los estilos de Vuetify
 
 
+
 const app = createApp(App);
 app.use(vuetify);
 app.use(router);

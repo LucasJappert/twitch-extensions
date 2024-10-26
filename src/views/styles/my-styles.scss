@@ -33,3 +33,7 @@ $neg-space: -$space;
         box-shadow: $neg-space $neg-space $shadow-size #00c8ff, $space $space $shadow-size #df01f8;
     }
 }
+
+.no-shadow-text {
+    text-shadow: none;
+}

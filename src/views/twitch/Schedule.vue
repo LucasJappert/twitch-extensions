@@ -1,5 +1,6 @@
 <template>
-    <div class="timeline-container">
+    <div class="schedule-container">
+        <user-welcome />
         <div
             v-for="segment in segments"
             :key="segment.title"
@@ -12,72 +13,118 @@
         >
             <!-- Barra de progreso solo si es el segmento actual -->
             <div v-if="isCurrentSegment(segment)" class="progress" :style="progressStyle(segment)"></div>
-            <span class="segment-title">{{ segment.title }}</span>
+            <span class="segment-title d-flex align-center justify-space-between w-100 px-4">
+                <div>{{ GetHHMM(segment.startTime) }}</div>
+                <div>
+                    <span class="no-shadow-text">{{ segment.icon }}</span> {{ segment.title.toUpperCase() }}
+                    <span class="no-shadow-text">{{ segment.icon }}</span>
+                </div>
+                <div>{{ GetHHMM(segment.endTime) }}</div>
+                <!-- {{ GetHHMM(segment.startTime) }} to {{ GetHHMM(segment.endTime) }} -->
+            </span>
 
             <!-- Textos para rango desde/hasta -->
-            <div class="range-container">
-                <span class="range-from range">{{ segment.startTime }}</span>
-                <span class="range-to range">{{ segment.endTime }}</span>
-            </div>
+            <!-- <div class="range-container">
+                <span class="range-from range">{{ GetHHMM(segment.startTime) }}</span>
+                <span class="range-to range">{{ GetHHMM(segment.endTime) }}</span>
+            </div> -->
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { ref, onBeforeUnmount, CSSProperties, onMounted } from "vue";
+import SegmentTimer from "./SegmentTimer";
+import UserWelcome from "./UserWelcome.vue";
+
+const GetSegmentTime = (hours: number, minutes: number = 0, seconds: number = 0) => {
+    const now = new Date();
+    now.setHours(hours, minutes, seconds);
+    return now;
+};
+
+const TitleEnum = {
+    WORK: {
+        icon: "", //"👨‍💻",
+        title: "Deep-Work",
+    },
+    DAILY: {
+        icon: "📅",
+        title: "Daily",
+    },
+    BREAK: {
+        icon: "☕",
+        title: "Break",
+    },
+    LAUNCH: {
+        icon: "🍔",
+        title: "Launch",
+    },
+};
 
 export default {
+    components: { UserWelcome },
     name: "ProgressWork",
     setup() {
         interface Segment {
+            icon: string;
             title: string;
-            startTime: string;
-            endTime: string;
+            startTime: Date;
+            endTime: Date;
         }
 
         // Estado y variables
         const currentProgress = ref<number>(0);
         let intervalId: number | null = null;
 
-        // const segments = ref<Segment[]>([{ title: "Work", startTime: "20:00", endTime: "21:00" }]);
-        const segments = ref<Segment[]>([
-            { title: "Work", startTime: "06:00", endTime: "08:00" },
-            { title: "Daily", startTime: "08:00", endTime: "08:15" },
-            { title: "Work", startTime: "08:15", endTime: "10:00" },
-            { title: "Mini-break", startTime: "10:00", endTime: "10:15" },
-            { title: "Work", startTime: "10:15", endTime: "12:00" },
-            { title: "Launch", startTime: "12:00", endTime: "13:00" },
-            // { title: "Nap", startTime: "12:45", endTime: "13:00" },
-            { title: "Work", startTime: "13:00", endTime: "15:00" },
+        const isWeekend = () => {
+            const now = new Date();
+            const day = now.getDay();
+            return day === 0 || day === 6;
+        };
 
-            // { title: "Nap", startTime: "14:00", endTime: "14:15" },
-            // { title: "Work", startTime: "14:15", endTime: "16:00" },
-            // { title: "Random time", startTime: "16:00", endTime: "23:00" },
-            // { title: "Random time", startTime: "23:00", endTime: "24:00" },
+        const segments = ref<Segment[]>([
+            { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(6), endTime: GetSegmentTime(8) },
+            { icon: TitleEnum.DAILY.icon, title: TitleEnum.DAILY.title, startTime: GetSegmentTime(8), endTime: GetSegmentTime(8, 15) },
+            { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(8, 15), endTime: GetSegmentTime(10) },
+            { icon: TitleEnum.BREAK.icon, title: TitleEnum.BREAK.title, startTime: GetSegmentTime(10), endTime: GetSegmentTime(10, 15) },
+            { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(10, 15), endTime: GetSegmentTime(12) },
+            { icon: TitleEnum.LAUNCH.icon, title: TitleEnum.LAUNCH.title, startTime: GetSegmentTime(12), endTime: GetSegmentTime(13) },
+            { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(13), endTime: GetSegmentTime(15) },
         ]);
+        if (isWeekend()) {
+            segments.value = [
+                { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(8, 15), endTime: GetSegmentTime(9, 30) },
+                { icon: TitleEnum.BREAK.icon, title: TitleEnum.BREAK.title, startTime: GetSegmentTime(9, 30), endTime: GetSegmentTime(9, 45) },
+                { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(9, 45), endTime: GetSegmentTime(11) },
+            ];
+        }
 
         // Métodos
+        const GetHHMM = (date: Date) => {
+            return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+        };
         const startTimeline = () => {
             intervalId = setInterval(updateProgress, 1000) as unknown as number;
         };
 
         const updateProgress = () => {
             const now = new Date();
-            const currentTime = `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-            currentProgress.value = calculateMinutes(currentTime);
+            currentProgress.value = calculateMinutes(now);
         };
 
         // Función para comparar si un segmento ya ha terminado
         const isCompletedSegment = (segment: Segment) => {
             const now = new Date();
-            const currentTime = calculateMinutes(`${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`);
+            const currentTime = calculateMinutes(now);
             const segmentEndTime = calculateMinutes(segment.endTime);
             return currentTime >= segmentEndTime; // Si el tiempo actual es mayor o igual al final del segmento
         };
 
-        const calculateMinutes = (time: string): number => {
-            const [hours, minutes] = time.split(":").map(Number);
-            return hours * 60 + minutes;
+        const calculateMinutes = (time: Date) => {
+            return time.getHours() * 60 + time.getMinutes();
+            // const [hours, minutes] = time.split(":").map(Number);
+            // return hours * 60 + minutes;
         };
 
         const isCurrentSegment = (segment: Segment): boolean => {
@@ -109,15 +156,17 @@ export default {
             };
         };
 
+        let segmentTimer: SegmentTimer | null = null;
         onMounted(() => {
+            segmentTimer = new SegmentTimer(segments.value.map((segment) => segment.endTime));
             startTimeline();
         });
 
         // Limpiar el intervalo al desmontar
         onBeforeUnmount(() => {
-            if (intervalId !== null) {
-                clearInterval(intervalId);
-            }
+            if (segmentTimer) segmentTimer.stopTimer();
+
+            if (intervalId !== null) clearInterval(intervalId);
         });
 
         return {
@@ -125,6 +174,7 @@ export default {
             isCompletedSegment,
             isCurrentSegment,
             progressStyle,
+            GetHHMM,
         };
     },
 };
@@ -133,16 +183,17 @@ export default {
 <style lang="scss"></style>
 
 <style scoped lang="scss">
-.timeline-container {
+.schedule-container {
     display: flex;
     flex-direction: column;
     background-color: transparent;
     padding: 10px;
     border-radius: 10px;
     width: 100%;
+    position: relative;
 }
 
-$neon-glow: 0 0 10px #00c8ff;
+$neon-glow: 0 0 10px #000000;
 $black-shadow: 0 0 10px #000;
 .segment {
     font-weight: bold;
@@ -154,7 +205,9 @@ $black-shadow: 0 0 10px #000;
     color: #fff;
     margin: 7px 0; // Añadimos un margen más grande para separar los segmentos
     text-shadow: $neon-glow, $neon-glow, $neon-glow;
-    box-shadow: 2px 2px 2px 0px #ae01f8, -2px -2px 2px 0px #00c8ff;
+    // box-shadow: 2px 2px 2px 0px #ae01f8, -2px -2px 2px 0px #00c8ff;
+    box-shadow: 0 0 2px 0px #ffffff;
+
     overflow: visible;
     flex-direction: column;
     min-height: 55px;
@@ -171,10 +224,10 @@ $black-shadow: 0 0 10px #000;
     height: 0px;
 }
 
-$neon-glow1: 0 0 10px #00c8ff;
+$neon-glow1: 0 0 3px #ffffff;
 .range {
     position: absolute;
-    color: #000;
+    color: #ffffff;
     text-shadow: $neon-glow1, $neon-glow1, $neon-glow1;
     // text-shadow: $neon-glow, $neon-glow, $neon-glow, $neon-glow;
     // text-shadow: $black-shadow, $black-shadow, $black-shadow, $black-shadow;
@@ -198,19 +251,20 @@ $neon-glow1: 0 0 10px #00c8ff;
     z-index: 1;
     font-size: 1.8rem;
     font-weight: bold;
-    color: #000;
-    text-shadow: $neon-glow, $neon-glow, $neon-glow;
+    color: #777777;
+    text-shadow: $neon-glow, $neon-glow;
 }
 
 .completed-segment {
     color: #000;
     text-shadow: $neon-glow, $neon-glow, $neon-glow;
-    background: #00648030;
+    background: #00000075;
     background-size: 200% 100%;
     border-radius: 10px;
+    box-shadow: 0 0 5px #00c8ff, 0 0 5px #00c8ff;
 }
 .current-segment {
-    background: #00c8ff40;
+    background: #00000040;
     box-shadow: 3px 3px 5px 0px #ae01f8, -3px -3px 5px 0px #00c8ff, 3px 3px 5px 0px #ae01f8, -3px -3px 5px 0px #00c8ff;
 
     .segment-title {
