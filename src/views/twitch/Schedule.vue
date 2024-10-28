@@ -99,6 +99,15 @@ export default {
                 { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(9, 45), endTime: GetSegmentTime(11) },
             ];
         }
+        // segments for test
+        // segments.value = [
+        //     { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(0), endTime: GetSegmentTime(6) },
+        //     { icon: TitleEnum.DAILY.icon, title: TitleEnum.DAILY.title, startTime: GetSegmentTime(6), endTime: GetSegmentTime(12) },
+        //     { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(12), endTime: GetSegmentTime(18) },
+        //     { icon: TitleEnum.BREAK.icon, title: TitleEnum.BREAK.title, startTime: GetSegmentTime(18), endTime: GetSegmentTime(18, 15) },
+        //     { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(18, 15), endTime: GetSegmentTime(23) },
+        // ];
+        segments.value.reverse();
 
         // Métodos
         const GetHHMM = (date: Date) => {
@@ -258,7 +267,7 @@ $neon-glow1: 0 0 3px #ffffff;
 .completed-segment {
     color: #000;
     text-shadow: $neon-glow, $neon-glow, $neon-glow;
-    background: #00000075;
+    background: #18cafb2a;
     background-size: 200% 100%;
     border-radius: 10px;
     box-shadow: 0 0 5px #00c8ff, 0 0 5px #00c8ff;

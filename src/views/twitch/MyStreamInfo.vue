@@ -1,16 +1,16 @@
 <template>
     <section>
         <div class="stream-info">
+            <Schedule />
+        </div>
+
+        <div class="stream-info">
             <div class="city align-center d-flex">
                 <span class="no-shadow-text text-h2 mr-5">🇦🇷</span>
                 Rafaela, Argentina
                 <span class="no-shadow-text text-h2 ml-5">🇦🇷</span>
             </div>
             <div class="time">{{ currentTime }}</div>
-        </div>
-
-        <div class="stream-info">
-            <Schedule />
         </div>
     </section>
 </template>
