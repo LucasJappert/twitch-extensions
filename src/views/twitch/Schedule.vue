@@ -1,6 +1,6 @@
 <template>
     <div class="schedule-container">
-        <!-- <user-welcome /> -->
+        <user-welcome />
         <div
             v-for="segment in segments"
             :key="segment.title"
