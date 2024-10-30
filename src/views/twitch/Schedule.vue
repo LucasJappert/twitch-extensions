@@ -78,7 +78,7 @@ export default {
             return day === 0 || day === 6;
         };
         const timeIntervals = ref<string[]>(["6:00", "8:00", "8:15", "10:00", "10:15", "12:00", "13:00", "15:00"]);
-        // const timeIntervals = ref<string[]>(["6", "12", "14:48:25", "23"]);
+        // const timeIntervals = ref<string[]>(["6", "12", "19:21:55", "20", "23"]);
         const titles = ref<Title[]>([TitleEnum.WORK, TitleEnum.DAILY, TitleEnum.WORK, TitleEnum.BREAK, TitleEnum.WORK, TitleEnum.LAUNCH, TitleEnum.WORK]);
         const segments = ref<Segment[]>([]);
         for (let i = 0; i < timeIntervals.value.length - 1; i++) {
@@ -88,13 +88,6 @@ export default {
             const endTime = GetSegmentTime(timeIntervals.value[i + 1]);
             segments.value.push({ icon: titles.value[i].icon, title: titles.value[i].title, startTime, endTime });
         }
-        // segments.value = [
-        //     { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(0), endTime: GetSegmentTime(6) },
-        //     { icon: TitleEnum.DAILY.icon, title: TitleEnum.DAILY.title, startTime: GetSegmentTime(6), endTime: GetSegmentTime(12) },
-        //     { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(12), endTime: GetSegmentTime(18) },
-        //     { icon: TitleEnum.BREAK.icon, title: TitleEnum.BREAK.title, startTime: GetSegmentTime(18), endTime: GetSegmentTime(18, 15) },
-        //     { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(18, 15), endTime: GetSegmentTime(23) },
-        // ];
         segments.value.reverse();
 
         // Métodos
@@ -184,32 +177,10 @@ export default {
     display: flex;
     flex-direction: column;
     background-color: transparent;
-    padding: 10px;
+    padding: 5px;
     border-radius: 10px;
     width: 100%;
     position: relative;
-}
-
-$neon-glow: 0 0 10px #000000;
-$black-shadow: 0 0 10px #000;
-.segment {
-    font-weight: bold;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    color: #fff;
-    margin: 7px 0; // Añadimos un margen más grande para separar los segmentos
-    text-shadow: $neon-glow, $neon-glow, $neon-glow;
-    // box-shadow: 2px 2px 2px 0px #ae01f8, -2px -2px 2px 0px #00c8ff;
-    box-shadow: 0 0 2px 0px #ffffff;
-
-    overflow: visible;
-    flex-direction: column;
-    min-height: 55px;
-    height: 40px;
-    background-color: #0000008a;
 }
 
 .range-container {
@@ -228,7 +199,6 @@ $neon-glow1: 0 0 3px #ffffff;
     text-shadow: $neon-glow1, $neon-glow1, $neon-glow1;
     // text-shadow: $neon-glow, $neon-glow, $neon-glow, $neon-glow;
     // text-shadow: $black-shadow, $black-shadow, $black-shadow, $black-shadow;
-    font-size: 1.2rem;
     // transform: ;
     margin-top: 3px;
     width: 40px;
@@ -243,12 +213,34 @@ $neon-glow1: 0 0 3px #ffffff;
     right: 0;
 }
 
+$white-shadow: 0 0 5px #ffffff;
+$neon-glow: 0 0 5px #000000;
+$black-shadow: 0 0 10px #000;
+.segment {
+    font-weight: bold;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    color: #fff;
+    margin: 5px 0; // Añadimos un margen más grande para separar los segmentos
+    text-shadow: $neon-glow, $neon-glow, $neon-glow;
+    // box-shadow: 2px 2px 2px 0px #ae01f8, -2px -2px 2px 0px #00c8ff;
+    box-shadow: $white-shadow;
+
+    overflow: visible;
+    flex-direction: column;
+    min-height: 20px;
+    height: 20px;
+    background-color: #0000008a;
+}
 .segment-title {
     position: relative;
     z-index: 1;
-    font-size: 1.8rem;
+    font-size: 0.7rem;
     font-weight: bold;
-    color: #777777;
+    color: #eeeeee;
     text-shadow: $neon-glow, $neon-glow;
 }
 
@@ -262,12 +254,14 @@ $neon-glow1: 0 0 3px #ffffff;
 }
 .current-segment {
     background: #00000040;
-    box-shadow: 3px 3px 5px 0px #ae01f8, -3px -3px 5px 0px #00c8ff, 3px 3px 5px 0px #ae01f8, -3px -3px 5px 0px #00c8ff;
+    box-shadow: 1px 1px 5px #ae01f8, -1px -1px 5px #00c8ff;
+    background: linear-gradient(45deg, #000000c0, #000000c0 35%, #000000 45%, #000000c0 75%);
+    background-size: 200% 100%;
+    animation: slideBackground 3s linear infinite;
 
     .segment-title {
         color: #00c8ff;
         text-shadow: $black-shadow, $black-shadow, $black-shadow, $black-shadow;
-        font-size: 1.8rem;
     }
 }
 .progress {

@@ -1,6 +1,7 @@
 <template>
     <div class="container-for-obs">
-        <FallingStars />
+        <div class="confetti-container"></div>
+        <!-- <FallingStars /> -->
 
         <section class="stream-info-container">
             <div class="stream-info">
@@ -9,9 +10,9 @@
 
             <div class="stream-info">
                 <div class="city align-center d-flex">
-                    <span class="no-shadow-text text-h2 mr-5">🇦🇷</span>
+                    <span class="no-shadow-text text-h5 mr-5">🇦🇷</span>
                     Rafaela, Argentina
-                    <span class="no-shadow-text text-h2 ml-5">🇦🇷</span>
+                    <span class="no-shadow-text text-h5 ml-5">🇦🇷</span>
                 </div>
                 <div class="time">{{ currentTime }}</div>
             </div>
@@ -21,7 +22,7 @@
 
 <script setup lang="ts">
 import Schedule from "./Schedule.vue";
-import FallingStars from "./FallingStars.vue";
+// import FallingStars from "./FallingStars.vue";
 import { ref, onMounted } from "vue";
 
 // Reactive variable to hold the current time
@@ -42,19 +43,19 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-$neon-glow: 0 0 10px #000000;
+$neon-glow: 0 0 5px #000000;
 .stream-info {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 5px;
     border-radius: 15px;
     animation: rotate-shadow 10s infinite linear;
-    margin: 10px;
+    margin: 0px;
 
     color: #00c8ff;
-    font-size: 2rem;
+    font-size: 1.2rem;
     margin-bottom: 10px;
     text-shadow: $neon-glow, $neon-glow, $neon-glow;
     font-weight: bold;
@@ -73,5 +74,13 @@ $neon-glow: 0 0 10px #000000;
     right: 0;
     width: 335px;
     // height: ;
+}
+.confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
 }
 </style>

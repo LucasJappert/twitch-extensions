@@ -1,118 +1,40 @@
 <template>
-    <div class="falling-stars-container">
-        <canvas ref="canvas" class="falling-stars-canvas"></canvas>
-    </div>
+    <div class="falling-stars-container"></div>
 </template>
 
 <script lang="ts">
-import { onMounted, ref } from "vue";
-
+import { onMounted } from "vue";
 export default {
     name: "FallingStars",
     setup() {
-        const canvas = ref<HTMLCanvasElement | null>(null);
-        const stars: Array<{
-            x: number;
-            y: number;
-            size: number;
-            angle: number;
-            speed: number;
-            alpha: number;
-            color: string;
-            trail: Array<{ x: number; y: number; alpha: number }>;
-        }> = [];
+        const CreateShootingStar = () => {
+            const sky = document.querySelector(".falling-stars-container");
+            if (!sky) return;
 
-        const getRandomYellowTone = () => {
-            const r = 255;
-            const g = Math.floor(200 + Math.random() * 55);
-            const b = Math.floor(50 + Math.random() * 30);
-            return `${r}, ${g}, ${b}`;
-        };
+            const shootingStar = document.createElement("div");
+            shootingStar.classList.add("falling-star");
 
-        const createShootingStar = () => {
-            const angle = Math.random() * Math.PI * 2;
-            stars.push({
-                x: Math.random() * canvas.value!.width,
-                y: Math.random() * canvas.value!.height,
-                size: Math.random() * 2 + 1.5, // Tamaño ajustado
-                angle,
-                speed: Math.random() * 5 + 3, // Velocidad ajustada para nueva escala
-                alpha: 1,
-                color: getRandomYellowTone(),
-                trail: [],
+            // Posición aleatoria para la estrella fugaz
+            shootingStar.style.top = `${Math.random() * 100}%`;
+            shootingStar.style.left = `${Math.random() * 100}%`;
+            shootingStar.style.animation = `shoot ${Math.random() * 4 + 1}s linear infinite`;
+            shootingStar.style.width = `${Math.random() * 200 + 100}px`;
+
+            sky.appendChild(shootingStar);
+            console.log(shootingStar);
+
+            // Eliminar la estrella después de la animación
+            shootingStar.addEventListener("animationend", () => {
+                shootingStar.remove();
+                console.log("animationend");
             });
-        };
-
-        const drawStar = (ctx: CanvasRenderingContext2D, x: number, y: number, radius: number, points: number, alpha: number, color: string) => {
-            const outerRadius = radius;
-            const innerRadius = radius / 2;
-
-            ctx.shadowBlur = 20;
-            ctx.shadowColor = `rgba(${color}, ${alpha})`;
-
-            ctx.beginPath();
-            ctx.moveTo(x + outerRadius, y);
-            for (let i = 0; i < points * 2; i++) {
-                const angle = (i * Math.PI) / points;
-                const radius = i % 2 === 0 ? outerRadius : innerRadius;
-                ctx.lineTo(x + Math.cos(angle) * radius, y + Math.sin(angle) * radius);
-            }
-            ctx.closePath();
-            ctx.fillStyle = `rgba(${color}, ${alpha})`;
-            ctx.fill();
-            ctx.shadowBlur = 0;
-        };
-
-        const animate = (ctx: CanvasRenderingContext2D) => {
-            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-
-            stars.forEach((star, index) => {
-                star.x += Math.cos(star.angle) * star.speed;
-                star.y += Math.sin(star.angle) * star.speed;
-                star.speed *= 0.99; // Ligeramente menor desaceleración
-
-                star.trail.push({ x: star.x, y: star.y, alpha: star.alpha });
-
-                if (star.trail.length > 50) star.trail.shift();
-
-                const gradient = ctx.createLinearGradient(star.trail[0].x, star.trail[0].y, star.x, star.y);
-                gradient.addColorStop(0, `rgba(255, 255, 255, 0)`);
-                gradient.addColorStop(1, `rgba(${star.color}, ${star.alpha})`);
-
-                ctx.beginPath();
-                ctx.moveTo(star.trail[0].x, star.trail[0].y);
-                star.trail.forEach((particle) => {
-                    ctx.lineTo(particle.x, particle.y);
-                });
-                ctx.strokeStyle = gradient;
-                ctx.lineWidth = star.size * 0.3;
-                ctx.stroke();
-
-                drawStar(ctx, star.x, star.y, star.size, 5, star.alpha, star.color);
-
-                star.alpha -= 0.005;
-                if (star.alpha <= 0) stars.splice(index, 1);
-            });
-
-            requestAnimationFrame(() => animate(ctx));
         };
 
         onMounted(() => {
-            const canvasEl = canvas.value;
-            if (canvasEl) {
-                const scale = 0.2; // Escala de 1/5 del tamaño original
-                canvasEl.width = 2560 * scale;
-                canvasEl.height = 1440 * scale;
-
-                const ctx = canvasEl.getContext("2d");
-                if (ctx) {
-                    setInterval(createShootingStar, 500);
-                    animate(ctx);
-                }
-            }
+            CreateShootingStar();
+            // Crear estrellas fugaces de forma periódica
+            setInterval(CreateShootingStar, 1000 * 1); // Cambia 1000 para ajustar la frecuencia
         });
-
-        return { canvas };
     },
 };
 </script>
@@ -125,12 +47,31 @@ export default {
     top: 0;
     left: 0;
     overflow: hidden;
-    background: #000;
+    background: transparent;
 }
-
-.falling-stars-canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
+.falling-star {
+    position: absolute;
+    // width: 100px;
+    height: 10px;
+    background: linear-gradient(white, transparent);
+    opacity: 0;
+    transform: rotate(45deg);
+    // animation: shoot 2s linear infinite;
+    z-index: 1;
+}
+/* Animación de la estrella */
+@keyframes shoot {
+    0% {
+        opacity: 0;
+        transform: translate(-100px, -100px) rotate(45deg);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(45deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(500px, 500px) rotate(45deg);
+    }
 }
 </style>
