@@ -1,6 +1,6 @@
 <template>
     <div class="schedule-container">
-        <user-welcome />
+        <!-- <user-welcome /> -->
         <div
             v-for="segment in segments"
             :key="segment.title"
@@ -20,14 +20,7 @@
                     <span class="no-shadow-text">{{ segment.icon }}</span>
                 </div>
                 <div>{{ GetHHMM(segment.endTime) }}</div>
-                <!-- {{ GetHHMM(segment.startTime) }} to {{ GetHHMM(segment.endTime) }} -->
             </span>
-
-            <!-- Textos para rango desde/hasta -->
-            <!-- <div class="range-container">
-                <span class="range-from range">{{ GetHHMM(segment.startTime) }}</span>
-                <span class="range-to range">{{ GetHHMM(segment.endTime) }}</span>
-            </div> -->
         </div>
     </div>
 </template>
@@ -37,29 +30,31 @@ import { ref, onBeforeUnmount, CSSProperties, onMounted } from "vue";
 import SegmentTimer from "./SegmentTimer";
 import UserWelcome from "./UserWelcome.vue";
 
-const GetSegmentTime = (hours: number, minutes: number = 0, seconds: number = 0) => {
+const GetSegmentTime = (timeInHHMMSS: string) => {
     const now = new Date();
-    now.setHours(hours, minutes, seconds);
+    const splitedTime = timeInHHMMSS.split(":");
+    if (splitedTime.length === 1) splitedTime.push("00", "00");
+    if (splitedTime.length === 2) splitedTime.push("00");
+    const [hours, minutes, seconds] = splitedTime;
+    now.setHours(Number(hours));
+    now.setMinutes(Number(minutes));
+    now.setSeconds(Number(seconds));
     return now;
 };
 
+class Title {
+    icon: string;
+    title: string;
+    constructor(icon: string, title: string) {
+        this.icon = icon;
+        this.title = title;
+    }
+}
 const TitleEnum = {
-    WORK: {
-        icon: "", //"👨‍💻",
-        title: "Deep-Work",
-    },
-    DAILY: {
-        icon: "📅",
-        title: "Daily",
-    },
-    BREAK: {
-        icon: "☕",
-        title: "Break",
-    },
-    LAUNCH: {
-        icon: "🍔",
-        title: "Launch",
-    },
+    WORK: new Title("👨‍💻", "Deep-Work"),
+    DAILY: new Title("📅", "Daily"),
+    BREAK: new Title("☕", "Break"),
+    LAUNCH: new Title("🍔", "Launch"),
 };
 
 export default {
@@ -82,24 +77,17 @@ export default {
             const day = now.getDay();
             return day === 0 || day === 6;
         };
+        const timeIntervals = ref<string[]>(["6:00", "8:00", "8:15", "10:00", "10:15", "12:00", "13:00", "15:00"]);
+        // const timeIntervals = ref<string[]>(["6", "12", "14:48:25", "23"]);
+        const titles = ref<Title[]>([TitleEnum.WORK, TitleEnum.DAILY, TitleEnum.WORK, TitleEnum.BREAK, TitleEnum.WORK, TitleEnum.LAUNCH, TitleEnum.WORK]);
+        const segments = ref<Segment[]>([]);
+        for (let i = 0; i < timeIntervals.value.length - 1; i++) {
+            if (i > timeIntervals.value.length - 1) continue;
 
-        const segments = ref<Segment[]>([
-            { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(6), endTime: GetSegmentTime(8) },
-            { icon: TitleEnum.DAILY.icon, title: TitleEnum.DAILY.title, startTime: GetSegmentTime(8), endTime: GetSegmentTime(8, 15) },
-            { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(8, 15), endTime: GetSegmentTime(10) },
-            { icon: TitleEnum.BREAK.icon, title: TitleEnum.BREAK.title, startTime: GetSegmentTime(10), endTime: GetSegmentTime(10, 15) },
-            { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(10, 15), endTime: GetSegmentTime(12) },
-            { icon: TitleEnum.LAUNCH.icon, title: TitleEnum.LAUNCH.title, startTime: GetSegmentTime(12), endTime: GetSegmentTime(13) },
-            { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(13), endTime: GetSegmentTime(15) },
-        ]);
-        if (isWeekend()) {
-            segments.value = [
-                { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(8, 15), endTime: GetSegmentTime(9, 30) },
-                { icon: TitleEnum.BREAK.icon, title: TitleEnum.BREAK.title, startTime: GetSegmentTime(9, 30), endTime: GetSegmentTime(9, 45) },
-                { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(9, 45), endTime: GetSegmentTime(11) },
-            ];
+            const startTime = GetSegmentTime(timeIntervals.value[i]);
+            const endTime = GetSegmentTime(timeIntervals.value[i + 1]);
+            segments.value.push({ icon: titles.value[i].icon, title: titles.value[i].title, startTime, endTime });
         }
-        // segments for test
         // segments.value = [
         //     { icon: TitleEnum.WORK.icon, title: TitleEnum.WORK.title, startTime: GetSegmentTime(0), endTime: GetSegmentTime(6) },
         //     { icon: TitleEnum.DAILY.icon, title: TitleEnum.DAILY.title, startTime: GetSegmentTime(6), endTime: GetSegmentTime(12) },

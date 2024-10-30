@@ -10,6 +10,7 @@ export default class SegmentTimer {
     private segmentTimerInterval: ReturnType<typeof setInterval> | null = null;
 
     constructor(endTimes: Array<Date>) {
+        endTimes.sort((a, b) => a.getTime() - b.getTime());
         this.endTimes = endTimes;
         if (endTimes.length === 0) return;
 
@@ -24,10 +25,11 @@ export default class SegmentTimer {
         if (this.currentSegmentIndex < this.endTimes.length) {
             this.nextBellDate = this.endTimes[this.currentSegmentIndex];
             this.currentSegmentIndex++;
-        } else {
-            this.nextBellDate = null; // No hay más segmentos
-            this.stopTimer(); // Detener el timer si no hay más segmentos
+            return;
         }
+
+        this.nextBellDate = null; // No hay más segmentos
+        this.stopTimer(); // Detener el timer si no hay más segmentos
     }
 
     // Método para iniciar el temporizador
@@ -55,9 +57,13 @@ export default class SegmentTimer {
     // Método para reproducir el sonido de la campana
     private playBellSound() {
         //console.log('Ding!');
-        for (let i = 0; i < 5; i++) setTimeout(() => BELL_SOUND.play(), i * 3000);
 
-        for (let i = 0; i < 15; i++) setTimeout(() => Confetti.ShootStarsAndSquares(), i * 1000);
+        for (let i = 0; i < 10; i++) setTimeout(() => {
+            if (i < 2) BELL_SOUND.play();
+            Confetti.ShootStarsAndSquares();
+            Confetti.ShootStarsAndSquares();
+            Confetti.ShootStarsAndSquares();
+        }, i * 3000);
     }
 }
 

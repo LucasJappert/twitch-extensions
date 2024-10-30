@@ -76,7 +76,7 @@ export default class Confetti {
             }, 5000);
         };
 
-        for (let i = 0; i < 5; i++) shoot();
+        shoot();
     }
 }
 
