@@ -61,17 +61,17 @@ $neon-glow: 0 0 10px #000000;
     background-color: #000000c0;
 }
 .container-for-obs {
-    width: 2560px;
-    height: 1440px;
+    width: 1280px;
+    height: 720px;
     position: relative;
     // box-shadow: inset 0 0 10px #00c8ff;
     animation: rotate-shadow-inset 10s infinite linear;
 }
 .stream-info-container {
     position: absolute;
-    bottom: 400px;
+    bottom: 200px;
     right: 0;
-    width: 670px;
+    width: 335px;
     // height: ;
 }
 </style>
