@@ -72,11 +72,11 @@ export default {
         const currentProgress = ref<number>(0);
         let intervalId: number | null = null;
 
-        const isWeekend = () => {
-            const now = new Date();
-            const day = now.getDay();
-            return day === 0 || day === 6;
-        };
+        // const isWeekend = () => {
+        //     const now = new Date();
+        //     const day = now.getDay();
+        //     return day === 0 || day === 6;
+        // };
         const timeIntervals = ref<string[]>(["6:00", "8:00", "8:15", "10:00", "10:15", "12:00", "13:00", "15:00"]);
         // const timeIntervals = ref<string[]>(["6", "12", "19:21:55", "20", "23"]);
         const titles = ref<Title[]>([TitleEnum.WORK, TitleEnum.DAILY, TitleEnum.WORK, TitleEnum.BREAK, TitleEnum.WORK, TitleEnum.LAUNCH, TitleEnum.WORK]);
