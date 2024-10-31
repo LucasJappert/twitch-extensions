@@ -72,7 +72,7 @@ $neon-glow: 0 0 5px #000000;
     position: absolute;
     bottom: 200px;
     right: 0;
-    width: 335px;
+    width: 300px;
     // height: ;
 }
 .confetti-container {
