@@ -1,36 +1,22 @@
 <template>
-    <!-- Modal de bienvenida -->
-    <v-dialog v-model="welcomeDialog" persistent max-width="800" class="pa-4 user-welcome-container">
-        <v-card class="pa-4 text-center">
-            <div class="text-h3">Bienvenido</div>
-            <div>¡Haz clic en el botón para comenzar.</div>
-            <v-card-actions class="d-flex justify-center">
-                <v-btn tonal color="primary" @click="startExperience" size="lg">Comenzar</v-btn>
-            </v-card-actions>
-        </v-card>
-    </v-dialog>
+    <v-btn tonal color="default" @click="startExperience" size="small" class="start-button">Start</v-btn>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            welcomeDialog: true,
-        };
-    },
     methods: {
         startExperience() {
-            this.welcomeDialog = false;
+            const startButton = document.querySelector(".start-button");
+            startButton.remove();
         },
     },
 };
 </script>
 
 <style scoped lang="scss">
-.user-welcome-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
+.start-button {
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 </style>

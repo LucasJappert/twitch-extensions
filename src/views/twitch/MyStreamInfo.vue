@@ -67,6 +67,7 @@ $neon-glow: 0 0 5px #000000;
     position: relative;
     // box-shadow: inset 0 0 10px #00c8ff;
     animation: rotate-shadow-inset 10s infinite linear;
+    overflow: hidden;
 }
 .stream-info-container {
     position: absolute;
