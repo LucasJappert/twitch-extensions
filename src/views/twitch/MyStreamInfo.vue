@@ -1,5 +1,7 @@
 <template>
     <div class="container-for-obs">
+        <!-- <AnimatedFrame /> -->
+
         <div class="confetti-container"></div>
         <!-- <FallingStars /> -->
 
@@ -17,12 +19,16 @@
                 <div class="time">{{ currentTime }}</div>
             </div>
         </section>
+
+        <StarryOverlay />
     </div>
 </template>
 
 <script setup lang="ts">
 import Schedule from "./Schedule.vue";
+// import AnimatedFrame from "./components/AnimatedFrame.vue";
 // import FallingStars from "./FallingStars.vue";
+import StarryOverlay from "./components/StarryOverlay.vue";
 import { ref, onMounted } from "vue";
 
 // Reactive variable to hold the current time
