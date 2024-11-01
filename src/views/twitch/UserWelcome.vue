@@ -1,5 +1,5 @@
 <template>
-    <v-btn tonal color="default" @click="startExperience" size="small" class="start-button">Start</v-btn>
+    <v-btn tonal color="default" @click="startExperience" size="xl" class="start-button pa-5">Start</v-btn>
 </template>
 
 <script>
