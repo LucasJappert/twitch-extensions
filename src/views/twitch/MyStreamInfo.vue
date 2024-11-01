@@ -1,6 +1,7 @@
 <template>
     <div class="container-for-obs">
         <!-- <AnimatedFrame /> -->
+        <!-- <StarryOverlay /> -->
 
         <div class="confetti-container"></div>
         <!-- <FallingStars /> -->
@@ -19,8 +20,6 @@
                 <div class="time">{{ currentTime }}</div>
             </div>
         </section>
-
-        <StarryOverlay />
     </div>
 </template>
 
@@ -28,7 +27,7 @@
 import Schedule from "./Schedule.vue";
 // import AnimatedFrame from "./components/AnimatedFrame.vue";
 // import FallingStars from "./FallingStars.vue";
-import StarryOverlay from "./components/StarryOverlay.vue";
+// import StarryOverlay from "./components/StarryOverlay.vue";
 import { ref, onMounted } from "vue";
 
 // Reactive variable to hold the current time
@@ -49,6 +48,9 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+$shadow-size: 2px;
+$space: 1px;
+$neg-space: -$space;
 $neon-glow: 0 0 5px #000000;
 .stream-info {
     display: flex;
@@ -58,28 +60,29 @@ $neon-glow: 0 0 5px #000000;
     padding: 5px;
     border-radius: 15px;
     animation: rotate-shadow 10s infinite linear;
+    // box-shadow: $neg-space $neg-space $shadow-size #00c8ff, $space $space $shadow-size #df01f8;
     margin: 0px;
 
     color: #00c8ff;
-    font-size: 1.2rem;
+    font-size: 2.5rem;
     margin-bottom: 10px;
     text-shadow: $neon-glow, $neon-glow, $neon-glow;
     font-weight: bold;
     background-color: #000000c0;
 }
 .container-for-obs {
-    width: 1280px;
-    height: 720px;
+    width: 2560px;
+    height: 1440px;
     position: relative;
     // box-shadow: inset 0 0 10px #00c8ff;
-    animation: rotate-shadow-inset 10s infinite linear;
+    // animation: rotate-shadow-inset 10s infinite linear;
     overflow: hidden;
 }
 .stream-info-container {
     position: absolute;
-    bottom: 200px;
+    bottom: 400px;
     right: 0;
-    width: 300px;
+    width: 600px;
     // height: ;
 }
 .confetti-container {

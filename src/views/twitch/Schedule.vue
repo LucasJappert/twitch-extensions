@@ -177,7 +177,7 @@ export default {
     display: flex;
     flex-direction: column;
     background-color: transparent;
-    padding: 5px;
+    padding: 10px 20px;
     border-radius: 10px;
     width: 100%;
     position: relative;
@@ -224,7 +224,7 @@ $black-shadow: 0 0 10px #000;
     align-items: center;
     border-radius: 10px;
     color: #fff;
-    margin: 5px 0; // Añadimos un margen más grande para separar los segmentos
+    margin: 10px 0; // Añadimos un margen más grande para separar los segmentos
     text-shadow: $neon-glow, $neon-glow, $neon-glow;
     // box-shadow: 2px 2px 2px 0px #ae01f8, -2px -2px 2px 0px #00c8ff;
     box-shadow: $white-shadow;
@@ -232,13 +232,13 @@ $black-shadow: 0 0 10px #000;
     overflow: visible;
     flex-direction: column;
     min-height: 20px;
-    height: 20px;
+    height: 40px;
     background-color: #0000008a;
 }
 .segment-title {
     position: relative;
     z-index: 1;
-    font-size: 0.7rem;
+    font-size: 1.4rem;
     font-weight: bold;
     color: #eeeeee;
     text-shadow: $neon-glow, $neon-glow;
