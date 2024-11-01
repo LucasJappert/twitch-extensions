@@ -37,11 +37,12 @@ export default class Confetti {
             colors: ['FFE400', 'FFBD00', 'E89400', 'FFCA6C', 'FDFFB8']
         };
 
+        // Posicion aleatoria dejando un margen de 5% en cada borde
         const randomOrigin = {
-            x: Math.random(),
-            y: Math.random() - 0.2
+            x: Math.random() * 0.9 + 0.05,
+            y: Math.random() * 0.9 + 0.05
         };
-        const randomScalar = Math.random() * 0.5 + 0.5;
+        const randomScalar = Math.random() * 0.5 + 1.5;
 
         // Disparar círculos y estrellas
         this.launchConfetti(confettiInstance, defaults, randomOrigin, randomScalar, 'circle', 20);
