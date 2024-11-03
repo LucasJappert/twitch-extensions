@@ -29,66 +29,17 @@
 import { ref, onBeforeUnmount, CSSProperties, onMounted } from "vue";
 import SegmentTimer from "./SegmentTimer";
 import UserWelcome from "./UserWelcome.vue";
-
-const GetSegmentTime = (timeInHHMMSS: string) => {
-    const now = new Date();
-    const splitedTime = timeInHHMMSS.split(":");
-    if (splitedTime.length === 1) splitedTime.push("00", "00");
-    if (splitedTime.length === 2) splitedTime.push("00");
-    const [hours, minutes, seconds] = splitedTime;
-    now.setHours(Number(hours));
-    now.setMinutes(Number(minutes));
-    now.setSeconds(Number(seconds));
-    return now;
-};
-
-class Title {
-    icon: string;
-    title: string;
-    constructor(icon: string, title: string) {
-        this.icon = icon;
-        this.title = title;
-    }
-}
-const TitleEnum = {
-    WORK: new Title("👨‍💻", "Deep-Work"),
-    DAILY: new Title("📅", "Daily"),
-    BREAK: new Title("☕", "Break"),
-    LAUNCH: new Title("🍔", "Launch"),
-};
+import { ScheduleUtils, ISegment } from "./utils/schedule.utils";
 
 export default {
     components: { UserWelcome },
     name: "ProgressWork",
     setup() {
-        interface Segment {
-            icon: string;
-            title: string;
-            startTime: Date;
-            endTime: Date;
-        }
-
         // Estado y variables
         const currentProgress = ref<number>(0);
         let intervalId: number | null = null;
 
-        // const isWeekend = () => {
-        //     const now = new Date();
-        //     const day = now.getDay();
-        //     return day === 0 || day === 6;
-        // };
-        const timeIntervals = ref<string[]>(["6", "8", "8:15", "10", "10:15", "12", "13", "15"]);
-        // const timeIntervals = ref<string[]>(["6", "12", "19:21:55", "20", "23"]);
-        const titles = ref<Title[]>([TitleEnum.WORK, TitleEnum.DAILY, TitleEnum.WORK, TitleEnum.BREAK, TitleEnum.WORK, TitleEnum.LAUNCH, TitleEnum.WORK]);
-        const segments = ref<Segment[]>([]);
-        for (let i = 0; i < timeIntervals.value.length - 1; i++) {
-            if (i > timeIntervals.value.length - 1) continue;
-
-            const startTime = GetSegmentTime(timeIntervals.value[i]);
-            const endTime = GetSegmentTime(timeIntervals.value[i + 1]);
-            segments.value.push({ icon: titles.value[i].icon, title: titles.value[i].title, startTime, endTime });
-        }
-        segments.value.reverse();
+        const segments = ref<ISegment[]>(ScheduleUtils.GetSegments());
 
         // Métodos
         const GetHHMM = (date: Date) => {
@@ -104,7 +55,7 @@ export default {
         };
 
         // Función para comparar si un segmento ya ha terminado
-        const isCompletedSegment = (segment: Segment) => {
+        const isCompletedSegment = (segment: ISegment) => {
             const now = new Date();
             const currentTime = calculateMinutes(now);
             const segmentEndTime = calculateMinutes(segment.endTime);
@@ -117,7 +68,7 @@ export default {
             // return hours * 60 + minutes;
         };
 
-        const isCurrentSegment = (segment: Segment): boolean => {
+        const isCurrentSegment = (segment: ISegment): boolean => {
             const currentTime = currentProgress.value;
             const segmentStart = calculateMinutes(segment.startTime);
             const segmentEnd = calculateMinutes(segment.endTime);
@@ -129,7 +80,7 @@ export default {
             return false;
         };
 
-        const currentSegmentProgress = (segment: Segment): number => {
+        const currentSegmentProgress = (segment: ISegment): number => {
             const currentTime = currentProgress.value;
             const segmentStart = calculateMinutes(segment.startTime);
             const segmentEnd = calculateMinutes(segment.endTime);
@@ -140,7 +91,7 @@ export default {
             return progress;
         };
 
-        const progressStyle = (segment: Segment): CSSProperties => {
+        const progressStyle = (segment: ISegment): CSSProperties => {
             return {
                 width: `${currentSegmentProgress(segment)}%`,
             };

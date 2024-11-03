@@ -13,9 +13,9 @@
 
             <div class="stream-info">
                 <div class="city align-center d-flex">
-                    <span class="no-shadow-text text-h5 mr-5">🇦🇷</span>
+                    <span class="no-shadow-text text-h4 mr-5">🇦🇷</span>
                     Rafaela, Argentina
-                    <span class="no-shadow-text text-h5 ml-5">🇦🇷</span>
+                    <span class="no-shadow-text text-h4 ml-5">🇦🇷</span>
                 </div>
                 <div class="time">{{ currentTime }}</div>
             </div>
@@ -36,7 +36,13 @@ const currentTime = ref("");
 // Function to update the time every second
 const updateTime = () => {
     const now = new Date();
-    currentTime.value = now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    const day = String(now.getDate()).padStart(2, "0");
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+    currentTime.value = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
 };
 
 onMounted(() => {
@@ -64,7 +70,7 @@ $neon-glow: 0 0 5px #000000;
     margin: 0px;
 
     color: #00c8ff;
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 10px;
     text-shadow: $neon-glow, $neon-glow, $neon-glow;
     font-weight: bold;
@@ -82,7 +88,7 @@ $neon-glow: 0 0 5px #000000;
     position: absolute;
     bottom: 400px;
     right: 0;
-    width: 600px;
+    width: 450px;
     // height: ;
 }
 .confetti-container {
