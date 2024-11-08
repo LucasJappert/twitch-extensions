@@ -2,8 +2,14 @@
 
 Welcome! This is the repository for the **Schedule Overlay**, an interactive website that displays a schedule of activities designed to boost productivity and aid in time management. 🎯
 
-![Preview of Schedule Overlay](![alt text](public/screenshot1.png))
-(![alt text](public/screenshot.png))
+## 🌎 Live Demo
+
+If you want to see the overlay in action, click here: [Live Demo](https://comfy-treacle-385af3.netlify.app/)
+
+---
+
+![alt text](public/screenshot1.png)
+![alt text](public/screenshot.png)
 
 ## ✨ Features
 
@@ -14,9 +20,9 @@ Welcome! This is the repository for the **Schedule Overlay**, an interactive web
 
 ## 🛠 Technologies Used
 
--   **Vite**: Fast and optimized development server and build tool for modern web projects.
--   **Vue 3**: JavaScript framework for building user interfaces with a component-based architecture.
--   **TypeScript**: Strongly typed programming language that builds on JavaScript, providing better tooling and error-checking.
+-   ![Vite](https://img.shields.io/badge/-Vite-646CFF?style=flat&logo=vite&logoColor=white) **Vite**: Fast and optimized development server and build tool for modern web projects.
+-   ![Vue 3](https://img.shields.io/badge/-Vue%203-42b883?style=flat&logo=vue.js&logoColor=white) **Vue 3**: JavaScript framework for building user interfaces with a component-based architecture.
+-   ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat&logo=typescript&logoColor=white) **TypeScript**: Strongly typed programming language that builds on JavaScript, providing better tooling and error-checking.
 -   **HTML5** and **CSS3**: Structure and styling of the site.
 -   **JavaScript**: Manages additional logic for time control, alarm, and confetti effects.
 -   **Libraries**:
