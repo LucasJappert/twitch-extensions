@@ -68,7 +68,32 @@ Below is an example of a typical schedule:
 
 ## 🤝 Contributions
 
-Contributions are welcome! If you have ideas to improve this overlay, feel free to open an issue or make a pull request.
+Contributions are welcome! If you have ideas to improve this overlay, feel free to fork the repository, make changes, and [create a pull request](https://github.com/LucasJappert/twitch-extensions/pulls).
+
+### How to Contribute
+
+1. **Fork this repository** by clicking the "Fork" button at the top right of this page.
+2. **Clone your forked repository** to your local machine:
+    ```bash
+    git clone https://github.com/your-username/twitch-extensions.git
+    ```
+3. **Create a new branch** for your feature or bug fix:
+    ```bash
+    git checkout -b feature/YourFeatureName
+    ```
+4. **Make your changes** and commit them:
+    ```bash
+    git commit -m "Add your message here"
+    ```
+5. **Push your branch** to GitHub:
+    ```bash
+    git push origin feature/YourFeatureName
+    ```
+6. Finally, [open a pull request](https://github.com/LucasJappert/twitch-extensions/compare) to discuss your changes.
+
+---
+
+Thank you for contributing! 🚀
 
 ## 📝 License
 
