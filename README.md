@@ -1,93 +1,73 @@
-# 📓 Notely - Online Notes Platform
+# 🎉 Schedule Overlay - Web-based Overlay for Productivity Tracking
 
-Welcome to **Notely**, a modern and minimalist platform for creating, organizing, and storing your notes securely in your browser. Whether you're a student, a professional, or just someone who loves to jot down ideas, Notely is designed to help you keep track of everything in one place.
+Welcome! This is the repository for the **Schedule Overlay**, an interactive website that displays a schedule of activities designed to boost productivity and aid in time management. 🎯
 
-Currently hosted at: [https://speedy-notes.netlify.app/](https://speedy-notes.netlify.app/)
+![Preview of Schedule Overlay](![alt text](public/screenshot1.png))
+(![alt text](public/screenshot.png))
 
-![Notely Screenshot]![Preview](public/image.png)
+## ✨ Features
 
-## 🌟 Features
+-   **Visual Schedule Interface**: Displays a visual timeline with activity segments such as _Deep Work_, _Break_, and _Lunch_.
+-   **Celebration Effects**: When a segment ends, the site launches confetti 🎊 to motivate you and mark the activity change.
+-   **Integrated Alarm**: At the end of each segment, an alarm sounds to notify you it's time to switch tasks.
+-   **Current Location and Time**: Shows the current time and location (like Rafaela, Argentina) to keep you aware of the time.
 
--   **Dark Mode** 🌙: Enjoy a sleek, modern design with dark-themed backgrounds and green confirmation buttons to reduce eye strain.
--   **Local Storage** 💾: Your notes are safely stored in your browser's local storage for quick access.
--   **Google Drive Sync (Coming Soon)** 📂: Soon, you'll be able to sync your notes with Google Drive, ensuring your data is always backed up and accessible.
--   **Responsive Design** 📱: Access your notes from any device, whether you're on desktop, tablet, or mobile.
--   **Quick and Easy Note Taking** 📝: Add, edit, and delete notes in a matter of clicks.
--   **Secure and Private** 🔒: Your data remains private in your local storage, with encryption planned for future cloud storage.
+## 🛠 Technologies Used
+
+-   **Vite**: Fast and optimized development server and build tool for modern web projects.
+-   **Vue 3**: JavaScript framework for building user interfaces with a component-based architecture.
+-   **TypeScript**: Strongly typed programming language that builds on JavaScript, providing better tooling and error-checking.
+-   **HTML5** and **CSS3**: Structure and styling of the site.
+-   **JavaScript**: Manages additional logic for time control, alarm, and confetti effects.
+-   **Libraries**:
+    -   [Canvas Confetti](https://github.com/catdad/canvas-confetti#readme) for confetti animation 🎉.
 
 ## 🚀 How to Use
 
-### 1. Set up
-
-Clone the repository and navigate into the project directory:
-
-```bash
-git clone https://github.com/LucasJappert/online-notes.git
-cd online-notes
-```
-
-### 2. Install dependencies
-
-Make sure you have [Node.js](https://nodejs.org/) installed. Then, install the necessary dependencies:
-
-```bash
-npm install
-```
-
-### 3. Run the development server
-
-Launch the app locally:
-
-```bash
-npm run dev
-```
-
-The app should now be running at `http://localhost:3000`. Open this in your browser to see Notely in action.
-
-### 4. Sync with Google Drive (Coming Soon)
-
-Currently, your notes are stored in the browser's local storage. The Google Drive sync feature is under development and will be available soon.
-
-## 👥 Contributing
-
-We welcome contributions from everyone! Whether you're fixing bugs, adding new features, or improving documentation, we'd love to have your input.
-
-### How to contribute:
-
-1. **Fork** the repository.
-2. **Create a branch** for your feature or fix:
+1. **Clone the repository**:
     ```bash
-    git checkout -b feature/amazing-feature
+    git clone https://github.com/LucasJappert/twitch-extensions.git
     ```
-3. **Commit your changes**:
+2. **Navigate to the project folder**:
     ```bash
-    git commit -m 'Add some amazing feature'
+    cd twitch-extensions
     ```
-4. **Push to the branch**:
+3. **Install the dependencies**:
     ```bash
-    git push origin feature/amazing-feature
+    npm install
     ```
-5. **Open a Pull Request** and describe your changes.
+4. **Run the development server**:
+    ```bash
+    npm run dev
+    ```
+5. **Open the `src/views/twitch/utils/schedule.utils.ts` file** to customize the schedule.
 
-### Code of Conduct
+## 🎛 Customization
 
-We follow a [Code of Conduct](link_to_code_of_conduct). Please ensure you adhere to this when contributing.
+## 🖼 Sample Usage
 
-## 📫 Contact
+Below is an example of a typical schedule:
 
-For questions, suggestions, or feedback, feel free to open an issue or contact us at:
-
--   **Email**: notely@support.com
--   **Twitter**: [@notely](https://twitter.com/notely)
+| Time  | Activity     |
+| ----- | ------------ |
+| 06:00 | 🧑‍💻 DEEP-WORK |
+| 08:00 | 🗓 DAILY      |
+| 08:15 | 🧑‍💻 DEEP-WORK |
+| 10:00 | ☕ BREAK     |
+| 10:15 | 🧑‍💻 DEEP-WORK |
+| 12:00 | 🍔 LUNCH     |
+| 13:00 | 🧑‍💻 DEEP-WORK |
 
 ---
 
-## 🙌 Join the Community
+## 🤝 Contributions
 
-We believe in open-source collaboration! Whether you're a beginner or an expert, we encourage you to help make Notely better for everyone. Spread the word, share your ideas, and help us build the best notes app together.
+Contributions are welcome! If you have ideas to improve this overlay, feel free to open an issue or make a pull request.
+
+## 📝 License
+
+This project is licensed under the MIT License. You are free to use the code as long as the attribution is maintained.
 
 ---
 
-### License
-
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+Thank you for checking out this project! I hope it helps improve your productivity and time management. 🚀
